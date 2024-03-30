@@ -1,0 +1,52 @@
+[
+    {
+        "ProductId": "71a15b22-bed1-404c-a688-a380d3c9b4f8",
+        "Name": "RAM Memory 512GB",
+        "Price": 544.62
+    },
+    {
+        "ProductId": "2c9c32f1-ac70-474c-85a5-5f766f6081f5",
+        "Name": "SSD Drive 2TB",
+        "Price": 285.2
+    },
+    {
+        "ProductId": "470e0c62-5db0-4a7b-89de-8ed9ecbf7bf0",
+        "Name": "Graphics Card",
+        "Price": 319.28
+    },
+    {
+        "ProductId": "2988659d-86a0-4f32-82ec-25b905a3e708",
+        "Name": "Motherboard",
+        "Price": 484.97
+    },
+    {
+        "ProductId": "57989c46-2758-410a-9be8-664f0c9b1232",
+        "Name": "Power Supply",
+        "Price": 2.23
+    },
+    {
+        "ProductId": "25698109-3859-473b-9b16-ebcb884b2d0c",
+        "Name": "CPU Cooler",
+        "Price": 492.46
+    },
+    {
+        "ProductId": "27e541f9-b09e-44df-af22-125986a27d03",
+        "Name": "Hard Drive 512GB",
+        "Price": 75.85
+    },
+    {
+        "ProductId": "3cdb0cbe-7a9b-4bcd-827d-f9ecd8db5728",
+        "Name": "Monitor",
+        "Price": 42.7
+    },
+    {
+        "ProductId": "8e30a4ca-ec0d-41b0-939c-20944d8e61df",
+        "Name": "Keyboard",
+        "Price": 311.01
+    },
+    {
+        "ProductId": "7f63836b-0438-4b75-a9c1-032e3179c243",
+        "Name": "Mouse",
+        "Price": 603.91
+    }
+]

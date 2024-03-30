@@ -1,0 +1,52 @@
+[
+    {
+        "ClientId": "1aedefc4-2ec3-446e-b306-01f99a64cbc9",
+        "Name": "Matthew Gonzalez",
+        "Email": "bhutchinson@gmail.com"
+    },
+    {
+        "ClientId": "ddcb77ce-e1cc-4364-be6d-9f48ced60ae4",
+        "Name": "Todd Dean",
+        "Email": "ytaylor@hotmail.com"
+    },
+    {
+        "ClientId": "b4d55f6b-0c53-464e-b55a-0e6f7db21a1d",
+        "Name": "Ian Smith",
+        "Email": "osanchez@yahoo.com"
+    },
+    {
+        "ClientId": "6db88b1e-011d-431a-aab7-7844f0cb6e54",
+        "Name": "Mr. Michael Peterson",
+        "Email": "hammondandrew@gmail.com"
+    },
+    {
+        "ClientId": "ec4eada4-168e-4ea4-8cf1-5128371628f6",
+        "Name": "Mark Carrillo",
+        "Email": "michaelhubbard@gmail.com"
+    },
+    {
+        "ClientId": "4d493042-83f0-4324-90cc-5779ec520ca0",
+        "Name": "Jared Briggs",
+        "Email": "davidgarza@gmail.com"
+    },
+    {
+        "ClientId": "45178187-8d42-4fa7-8123-1cd23c0d945f",
+        "Name": "Mrs. Heidi Santos",
+        "Email": "spearsjustin@yahoo.com"
+    },
+    {
+        "ClientId": "3bcf8d65-ff49-4001-9cda-c66c5e3f99db",
+        "Name": "Jonathan Kirby",
+        "Email": "xyork@gmail.com"
+    },
+    {
+        "ClientId": "e3d6f3b2-6330-475b-bfc1-d03ce6dc928b",
+        "Name": "Shannon Knight",
+        "Email": "morenoscott@gmail.com"
+    },
+    {
+        "ClientId": "9b478202-420d-4ae4-a332-7e3c2a0d9731",
+        "Name": "Henry Hall",
+        "Email": "amanda79@gmail.com"
+    }
+]
