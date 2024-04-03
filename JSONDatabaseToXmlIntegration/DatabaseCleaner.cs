@@ -19,7 +19,11 @@ public class DatabaseCleaner
     public async Task ClearDatabase()
     {
         try
-        {
+        {  
+            _finalOrders.Products.RemoveRange(_finalOrders.Products);
+            _finalOrders.Invoices.RemoveRange(_finalOrders.Invoices);
+            _finalOrders.Clients.RemoveRange(_finalOrders.Clients);
+            _finalOrders.ProductQuantities.RemoveRange(_finalOrders.ProductQuantities);
             _finalOrders.Orders.RemoveRange(_finalOrders.Orders);
             await _finalOrders.SaveChangesAsync();
             _ordersInvoices.Orders.RemoveRange(_ordersInvoices.Orders);

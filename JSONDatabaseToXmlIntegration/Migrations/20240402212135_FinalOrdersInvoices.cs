@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JSONDatabaseToXmlIntegration.Migrations
 {
     /// <inheritdoc />
-    public partial class OrdersInvoices : Migration
+    public partial class FinalOrdersInvoices : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

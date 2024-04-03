@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JSONDatabaseToXmlIntegration.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialFinalOrders : Migration
+    public partial class FinalOrdersInitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Client",
+                name: "Clients",
                 columns: table => new
                 {
                     ClientId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -21,11 +21,11 @@ namespace JSONDatabaseToXmlIntegration.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Client", x => x.ClientId);
+                    table.PrimaryKey("PK_Clients", x => x.ClientId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Invoice",
+                name: "Invoices",
                 columns: table => new
                 {
                     InvoiceId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -35,11 +35,11 @@ namespace JSONDatabaseToXmlIntegration.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Invoice", x => x.InvoiceId);
+                    table.PrimaryKey("PK_Invoices", x => x.InvoiceId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Products",
                 columns: table => new
                 {
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -48,7 +48,7 @@ namespace JSONDatabaseToXmlIntegration.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.ProductId);
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,15 +64,15 @@ namespace JSONDatabaseToXmlIntegration.Migrations
                 {
                     table.PrimaryKey("PK_Orders", x => x.FinalOrderDetailsId);
                     table.ForeignKey(
-                        name: "FK_Orders_Client_ClientId",
+                        name: "FK_Orders_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "ClientId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_Invoice_InvoiceId",
+                        name: "FK_Orders_Invoices_InvoiceId",
                         column: x => x.InvoiceId,
-                        principalTable: "Invoice",
+                        principalTable: "Invoices",
                         principalColumn: "InvoiceId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -95,9 +95,9 @@ namespace JSONDatabaseToXmlIntegration.Migrations
                         principalTable: "Orders",
                         principalColumn: "FinalOrderDetailsId");
                     table.ForeignKey(
-                        name: "FK_ProductQuantities_Product_ProductId",
+                        name: "FK_ProductQuantities_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -133,13 +133,13 @@ namespace JSONDatabaseToXmlIntegration.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Client");
+                name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Invoice");
+                name: "Invoices");
         }
     }
 }

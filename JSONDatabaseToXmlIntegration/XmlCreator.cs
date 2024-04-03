@@ -56,69 +56,119 @@ public class XmlCreator
         doc.Save(xmlPath);
     }
 
-    public async Task PrepareData()
+    public async Task CopyDataBetweenDbContexts()
     {
-        List<Order> orders = await _ordersInvoices.Orders.ToListAsync();
-        if (orders.Count == 0)
+        List<Client> clients = await _productsClients.Clients.ToListAsync();
+        List<Invoice> invoices = await _ordersInvoices.Invoices.ToListAsync();
+        List<Product> products = await _productsClients.Products.ToListAsync();
+        foreach (var product in products)
         {
-            Console.WriteLine("There is no data to process");
-            return;
+            _finalOrders.Products.Add(product);
+        }
+        foreach (var client in clients)
+        {
+            _finalOrders.Clients.Add(client);
         }
 
-        foreach (var order in orders)
+        foreach (var invoice in invoices)
         {
-            try
+            _finalOrders.Invoices.Add(invoice);
+        }
+
+        await _finalOrders.SaveChangesAsync();
+    }
+
+    public async Task PrepareData(string errorPath)
+{
+    List<Order> orders = await _ordersInvoices.Orders.ToListAsync();
+    if (orders.Count == 0)
+    {
+        Console.WriteLine("There is no data to process");
+        return;
+    }
+
+    foreach (var order in orders)
+    {
+        try
+        {
+            var client = _finalOrders.Clients.FirstOrDefault(x => x.ClientId == order.ClientId);
+            var invoice = _finalOrders.Invoices.FirstOrDefault(x => x.OrderId == order.OrderId);
+            if (client == null)
             {
-                var client = _productsClients.Clients.FirstOrDefault(x => x.ClientId == order.ClientId);
-                var invoice = _ordersInvoices.Invoices.FirstOrDefault(x => x.OrderId == order.OrderId);
-                if (client == null)
-                {
-                    Console.WriteLine("Order with id " + order.OrderId + " is connected with the not existing user");
-                }
-
-                if (invoice == null)
-                {
-                    Console.WriteLine("Order with id " + order.OrderId + " is connected with the not existing invoice");
-                }
-
-                List<ProductQuantity> productQuantities = new List<ProductQuantity>();
-                foreach (var guid in order.Products)
-                {
-                    var existingProductQuantity = productQuantities.FirstOrDefault(pq => pq.Product.ProductId == guid);
-
-                    if (existingProductQuantity != null)
-                    {
-                        existingProductQuantity.Quantity += 1;
-                    }
-                    else
-                    {
-                        productQuantities.Add(new ProductQuantity
-                        {
-                            Product = _productsClients.Products.FirstOrDefault(x=>x.ProductId == guid),
-                            ProductQuantityId = Guid.NewGuid(),
-                            Quantity = 1
-                        });
-                    }
-
-                }
-
-                FinalOrderDetails orderPrepared = new FinalOrderDetails()
-                {
-                    Client = client,
-                    Invoice = invoice,
-                    Products = productQuantities,
-                    OrderDate = order.OrderDate
-                };
-                _finalOrders.Orders.Add(orderPrepared);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error occured: {ex.Message}");
+                File.AppendAllText(errorPath, "Order with id " + order.OrderId + " is connected with the not existing user. Skipped this order." + Environment.NewLine);
+                continue;
             }
 
+            if (invoice == null)
+            {
+                File.AppendAllText(errorPath, "Order with id " + order.OrderId + " is connected with the not existing invoice. Skipped this order." + Environment.NewLine);
+                continue;
+            }
+
+            List<ProductQuantity> productQuantities = new List<ProductQuantity>();
+            foreach (var guid in order.Products)
+            {
+                var existingProductQuantity = productQuantities.FirstOrDefault(pq => pq.Product.ProductId == guid);
+
+                if (existingProductQuantity != null)
+                {
+                    existingProductQuantity.Quantity += 1;
+                }
+                else
+                {
+                    var product = _finalOrders.Products.FirstOrDefault(x => x.ProductId == guid);
+                    if (product == null)
+                    {   
+                        File.AppendAllText(errorPath, "Product with id : " + guid + " attached to order with id: " + order.OrderId + " does not exist. Skipped this order" + Environment.NewLine );
+                        continue;
+                    }
+                    productQuantities.Add(new ProductQuantity
+                    {
+                        Product = product,
+                        ProductQuantityId = Guid.NewGuid(),
+                        Quantity = 1
+                    });
+                }
+            }
+
+            double sum = 0;
+            foreach (var productQuantity in productQuantities)
+            {
+                sum += productQuantity.Quantity * productQuantity.Product.Price;
+            }
+
+            if (Math.Round(sum, 2) !=
+                Math.Round(_finalOrders.Invoices.FirstOrDefault(x => x.OrderId == order.OrderId).AmountDue, 2))
+            {
+                File.AppendAllText(errorPath, "The price in order with id: " + order.OrderId + " is not equal to the price on invoice attached to this order. Skipped this order" + Environment.NewLine);
+                continue;
+            }
+
+            FinalOrderDetails orderPrepared = new FinalOrderDetails()
+            {
+                Client = client,
+                Invoice = invoice,
+                Products = productQuantities,
+                OrderDate = order.OrderDate
+            };
+            _finalOrders.Orders.Add(orderPrepared);
+        }
+        catch (Exception ex)
+        {
+            File.AppendAllText(errorPath, $"Error occured: {ex.Message}" + Environment.NewLine);
+        }
+
+        try
+        {
             await _finalOrders.SaveChangesAsync();
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error occured: {ex.Message}");
+        }
     }
+}
+
     
     
 }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JSONDatabaseToXmlIntegration.Migrations
 {
     [DbContext(typeof(FinalOrders))]
-    [Migration("20240402174011_InitialFinalOrders")]
-    partial class InitialFinalOrders
+    [Migration("20240403074231_FinalOrdersInitial")]
+    partial class FinalOrdersInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,7 +44,7 @@ namespace JSONDatabaseToXmlIntegration.Migrations
 
                     b.HasKey("ClientId");
 
-                    b.ToTable("Client");
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("JSONDatabaseToXmlIntegration.Models.FinalOrderDetails", b =>
@@ -92,7 +92,7 @@ namespace JSONDatabaseToXmlIntegration.Migrations
 
                     b.HasKey("InvoiceId");
 
-                    b.ToTable("Invoice");
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("JSONDatabaseToXmlIntegration.Models.Product", b =>
@@ -113,7 +113,7 @@ namespace JSONDatabaseToXmlIntegration.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("JSONDatabaseToXmlIntegration.Models.ProductQuantity", b =>

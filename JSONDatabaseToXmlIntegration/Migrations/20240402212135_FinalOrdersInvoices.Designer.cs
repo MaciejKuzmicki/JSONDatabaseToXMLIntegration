@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JSONDatabaseToXmlIntegration.Migrations
 {
     [DbContext(typeof(Orders_Invoices))]
-    [Migration("20240402092606_Orders&Invoices")]
-    partial class OrdersInvoices
+    [Migration("20240402212135_FinalOrdersInvoices")]
+    partial class FinalOrdersInvoices
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,16 +29,20 @@ namespace JSONDatabaseToXmlIntegration.Migrations
                 {
                     b.Property<Guid>("InvoiceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasAnnotation("Relational:JsonPropertyName", "InvoiceId");
 
                     b.Property<double>("AmountDue")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double precision")
+                        .HasAnnotation("Relational:JsonPropertyName", "AmountDue");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasAnnotation("Relational:JsonPropertyName", "Date");
 
                     b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasAnnotation("Relational:JsonPropertyName", "OrderId");
 
                     b.HasKey("InvoiceId");
 
@@ -49,13 +53,16 @@ namespace JSONDatabaseToXmlIntegration.Migrations
                 {
                     b.Property<Guid>("OrderId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasAnnotation("Relational:JsonPropertyName", "OrderId");
 
                     b.Property<Guid>("ClientId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasAnnotation("Relational:JsonPropertyName", "ClientId");
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasAnnotation("Relational:JsonPropertyName", "OrderDate");
 
                     b.Property<string>("ProductsJson")
                         .IsRequired()

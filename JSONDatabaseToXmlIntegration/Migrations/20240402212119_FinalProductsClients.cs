@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JSONDatabaseToXmlIntegration.Migrations
 {
     /// <inheritdoc />
-    public partial class ProductsClients : Migration
+    public partial class FinalProductsClients : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
